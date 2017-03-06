@@ -91,7 +91,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             let sound = sounds[indexPath.row]
             
-            print("You are about to delete audio file with the name of \(sound.name)")
+            print("The audio file with the name of \(sound.name) has just been deleted!")
+            
+            
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            context.delete(sound)
+            
+            do {
+                
+                try sounds = context.fetch(Sound.fetchRequest())
+                
+                tableView.reloadData()
+                
+                
+            } catch let error as NSError {
+                
+                print(error)
+                
+            }
 
         }
     }
