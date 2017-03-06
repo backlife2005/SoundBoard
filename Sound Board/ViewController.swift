@@ -64,7 +64,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } catch let error as NSError {
             
             print(error)
+            
         }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -112,6 +114,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
 
         }
+        
     }
     
 }
