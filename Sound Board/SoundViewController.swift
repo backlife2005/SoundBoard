@@ -12,9 +12,20 @@ import AVFoundation
 
 class SoundViewController: UIViewController {
     
+    // @IBOutlets
+    
     @IBOutlet weak var recordButton: UIButton!
     
+    @IBOutlet weak var playButton: UIButton!
+    
     @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var addButton: UIButton!
+    
+    
+    
+    
+    // Property Variables
     
     var audioRecorder : AVAudioRecorder? = nil
     
@@ -32,6 +43,70 @@ class SoundViewController: UIViewController {
         setupRecorder()
         
     }
+    
+    
+    
+    // @IBAction functions
+    
+    // recordTapped
+    
+    @IBAction func recordTapped(_ sender: Any) {
+        
+        if audioRecorder!.isRecording {
+            
+            // Stop the recording
+            
+            audioRecorder?.stop()
+            
+            
+            // Change button title to Recording
+            
+            recordButton.setTitle("Record", for: .normal)
+            
+            
+        } else {
+            
+            // Start the recording
+            
+            audioRecorder?.record()
+            
+            
+            // Change the button title to Stop
+            
+            recordButton.setTitle("Stop", for: .normal)
+        }
+        
+    }
+    
+    // playTapped
+    
+    @IBAction func playTapped(_ sender: Any) {
+        
+        do {
+            
+            try audioPlayer = AVAudioPlayer (contentsOf: audioPlyerURL!)
+            
+            audioPlayer!.play()
+            
+        } catch let error as NSError {
+            
+            print(error)
+            
+        }
+        
+    }
+    
+    // addTapped
+    
+    @IBAction func addTapped(_ sender: Any) {
+        
+    }
+    
+    
+    
+    // Custom functions
+    
+    // setupRecorder
     
     func setupRecorder () {
         
@@ -86,53 +161,5 @@ class SoundViewController: UIViewController {
             print(error)
             
         }
-    }
-    
-    @IBAction func recordTapped(_ sender: Any) {
-        
-        if audioRecorder!.isRecording {
-            
-            // Stop the recording
-            
-            audioRecorder?.stop()
-            
-            
-            // Change button title to Recording
-            
-            recordButton.setTitle("Record", for: .normal)
-            
-            
-        } else {
-            
-            // Start the recording
-            
-            audioRecorder?.record()
-            
-            
-            // Change the button title to Stop
-            
-            recordButton.setTitle("Stop", for: .normal)
-        }
-        
-    }
-    
-    @IBAction func playTapped(_ sender: Any) {
-        
-        do {
-            
-            try audioPlayer = AVAudioPlayer (contentsOf: audioPlyerURL!)
-            
-            audioPlayer!.play()
-            
-        } catch let error as NSError {
-            
-            print(error)
-            
-        }
-
-    }
-    
-    @IBAction func addTapped(_ sender: Any) {
-        
     }
 }
