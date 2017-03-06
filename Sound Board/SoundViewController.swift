@@ -18,6 +18,13 @@ class SoundViewController: UIViewController {
     
     var audioRecorder : AVAudioRecorder? = nil
     
+    var audioPlayer : AVAudioPlayer?
+    
+    // Nick didn't create this property
+    
+    var audioPlyerURL : URL?
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -47,6 +54,8 @@ class SoundViewController: UIViewController {
             let pathComponents = [basePath, "audio.m4a"]
             
             let audioURL = NSURL.fileURL(withPathComponents: pathComponents)
+            
+            audioPlyerURL = audioURL
             
             print("####################")
             
@@ -109,7 +118,20 @@ class SoundViewController: UIViewController {
     
     @IBAction func playTapped(_ sender: Any) {
         
+        do {
+            
+            try audioPlayer = AVAudioPlayer (contentsOf: audioPlyerURL!)
+            
+            audioPlayer!.play()
+            
+        } catch let error as NSError {
+            
+            print(error)
+            
+        }
+
     }
+    
     @IBAction func addTapped(_ sender: Any) {
         
     }
