@@ -42,6 +42,10 @@ class SoundViewController: UIViewController {
         
         setupRecorder()
         
+        playButton.isEnabled = false
+        
+        addButton.isEnabled = false
+        
     }
     
     
@@ -62,6 +66,12 @@ class SoundViewController: UIViewController {
             // Change button title to Recording
             
             recordButton.setTitle("Record", for: .normal)
+            
+            // Enable the play button when recording is stopped.
+            
+            playButton.isEnabled = true
+            
+            addButton.isEnabled = true
             
             
         } else {
@@ -99,6 +109,31 @@ class SoundViewController: UIViewController {
     // addTapped
     
     @IBAction func addTapped(_ sender: Any) {
+        
+        // Set the context of CoreDate
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        
+        // Create sound variable of type Sound object for CoreData and set the attributes of name and audio.
+        
+        let sound = Sound (context: context)
+        
+        sound.name = nameTextField.text
+        
+        sound.audio = NSData(contentsOf: audioPlyerURL!)
+        
+        
+        // Save the context to CoreData
+        
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        print("The name of audio file is: \(sound.name!)")
+        print ("The context of the audion file is: \(sound.audio)")
+        
+        // Navigate back to the previous View Controller.
+        
+        navigationController!.popToRootViewController(animated: true)
         
     }
     
