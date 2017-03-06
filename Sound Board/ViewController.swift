@@ -73,7 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         do {
             
-        try audioPlayer = AVAudioPlayer (data: sound.audio as! Data)
+            try audioPlayer = AVAudioPlayer (data: sound.audio as! Data)
             
         } catch let error as NSError {
             
@@ -83,6 +83,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         audioPlayer?.play()
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .delete {
+            
+            let sound = sounds[indexPath.row]
+            
+            print("You are about to delete audio file with the name of \(sound.name)")
+
+        }
     }
     
 }
