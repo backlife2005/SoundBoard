@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var sounds : [Sound] = []
     
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -25,13 +25,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.delegate = self
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return sounds.count
         
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell ()
@@ -43,5 +43,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        // Set the context of CoreDate
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        do {
+            
+            try sounds = context.fetch(Sound.fetchRequest())
+            
+            tableView.reloadData()
+            
+            
+        } catch let error as NSError {
+            
+            print(error)
+        }
+    }
+    
 }
-
