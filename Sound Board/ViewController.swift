@@ -8,6 +8,8 @@
 
 import UIKit
 
+import AVFoundation
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
@@ -15,7 +17,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var sounds : [Sound] = []
     
+    // Property Variables
     
+    var audioPlayer : AVAudioPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +65,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             print(error)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let sound = sounds[indexPath.row]
+        
+        do {
+            
+        try audioPlayer = AVAudioPlayer (data: sound.audio as! Data)
+            
+        } catch let error as NSError {
+            
+            print(error)
+        }
+        
+        audioPlayer?.play()
     }
     
 }
