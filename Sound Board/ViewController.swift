@@ -81,6 +81,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         audioPlayer?.play()
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
 }
