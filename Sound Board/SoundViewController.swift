@@ -27,7 +27,7 @@ class SoundViewController: UIViewController {
     }
     
     func setupRecorder () {
-       
+        
         do {
             // Create an audion session
             
@@ -48,7 +48,13 @@ class SoundViewController: UIViewController {
             
             let audioURL = NSURL.fileURL(withPathComponents: pathComponents)
             
-
+            print("####################")
+            
+            print("The audioURL is: \(audioURL)")
+            
+            print("####################")
+            
+            
             // Create settings for the audio recorder
             
             var settings : [String:Any] = [:]
@@ -59,7 +65,7 @@ class SoundViewController: UIViewController {
             
             settings[AVNumberOfChannelsKey] = 2
             
-
+            
             // Create Audio Recorder Object
             
             try audioRecorder = AVAudioRecorder (url: audioURL!, settings: settings)
@@ -74,6 +80,30 @@ class SoundViewController: UIViewController {
     }
     
     @IBAction func recordTapped(_ sender: Any) {
+        
+        if audioRecorder!.isRecording {
+            
+            // Stop the recording
+            
+            audioRecorder?.stop()
+            
+            
+            // Change button title to Recording
+            
+            recordButton.setTitle("Record", for: .normal)
+            
+            
+        } else {
+            
+            // Start the recording
+            
+            audioRecorder?.record()
+            
+            
+            // Change the button title to Stop
+            
+            recordButton.setTitle("Stop", for: .normal)
+        }
         
     }
     
